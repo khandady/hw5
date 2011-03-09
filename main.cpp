@@ -12,7 +12,9 @@ void instructions()
       << "  2 to insert at end of list\n" 
       << "  3 to delete from beginning of list\n" 
       << "  4 to delete from end of list\n" 
-      << "  5 to end list processing\n";
+      << "  5 to end list processing\n"
+      << "  6 to sum list elements\n"
+      << "  7 to access a list element\n";
 } 
 
 // function to test a LinkedList
@@ -56,8 +58,16 @@ void testLinkedList( LinkedList< T > &listObject, const string &typeName )
 
             listObject.print();
             break;
+         case 6:
+	    cout << listObject.sum() << endl;
+	 case 7:
+	    cout << "Enter element subscript : ";
+	    cin >> value;
+	    T entry = listObject[value];
+	    cout << "\nEntry is : " << entry << endl;
+	    
       }
-   } while ( choice < 5 ); 
+   } while ( choice != 5 ); 
 
    cout << "End list test\n\n";
 } 

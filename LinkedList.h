@@ -206,4 +206,57 @@ void LinkedList< NODETYPE >::print() const
   cout << "\n\n";
 } 
 
-#endif
+//overload [] to access list elements, broken atm
+template< typename NODETYPE >
+NODETYPE & LinkedList< NODETYPE >::operator[](int index) const
+{
+	ListNode< NODETYPE > *currentPtr = firstPtr;
+	for (int i = 0;i<index;i++)
+	{
+		currentPtr = currentPtr->nextPtr;
+	}
+	NODETYPE thing = currentPtr->getData();
+	NODETYPE &node = thing;
+	return node;
+}
+
+//sum list elements
+template< typename NODETYPE >
+NODETYPE LinkedList< NODETYPE >::sum() const
+{
+	if ( isEmpty() )
+	{
+		cout << "The list is empty\n\n";
+	}
+
+	ListNode< NODETYPE > *currentPtr = firstPtr;
+
+	cout << "Sum of elements is: ";
+	NODETYPE total = 0;
+	while ( currentPtr != 0 )
+	{
+		total += currentPtr->getData();
+		currentPtr = currentPtr->nextPtr;
+	}
+	return total;
+}
+
+/*template< typename NODETYPE >
+void LinkedList< NODETYPE >::sort()
+{*/
+
+template< typename NODETYPE >
+void LinkedList< NODETYPE >::reverse()
+{
+	int size= 0;
+	ListNode< NODETYPE > *currentPtr = firstPtr;
+	while (currentPtr != lastPtr)
+	{
+		size++;
+		currentPtr = currentPtr->nextPtr;
+	}
+	int i=0;
+	int j=size-1;
+	while(i<j)
+	{
+		
