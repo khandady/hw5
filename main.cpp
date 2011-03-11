@@ -14,7 +14,8 @@ void instructions()
       << "  4 to delete from end of list\n" 
       << "  5 to end list processing\n"
       << "  6 to sum list elements\n"
-      << "  7 to access a list element\n";
+      << "  7 to access a list element\n"
+      << "  8 to reverse list order\n";
 } 
 
 // function to test a LinkedList
@@ -60,12 +61,17 @@ void testLinkedList( LinkedList< T > &listObject, const string &typeName )
             break;
          case 6:
 	    cout << listObject.sum() << endl;
+	    break;
 	 case 7:
-	    cout << "Enter element subscript : ";
+	    {cout << "Enter element subscript : ";
 	    cin >> value;
-	    T entry = listObject[value];
-	    cout << "\nEntry is : " << entry << endl;
-	    
+	    T something = listObject[value];
+	    cout << "\nEntry is : " << something << endl;
+ 	    break;}
+	 case 8:
+	    listObject.reverse();
+            listObject.print();	    
+	    break;
       }
    } while ( choice != 5 ); 
 

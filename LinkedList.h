@@ -248,15 +248,35 @@ void LinkedList< NODETYPE >::sort()
 template< typename NODETYPE >
 void LinkedList< NODETYPE >::reverse()
 {
-	int size= 0;
+	unsigned int size= 0;
 	ListNode< NODETYPE > *currentPtr = firstPtr;
 	while (currentPtr != lastPtr)
 	{
 		size++;
 		currentPtr = currentPtr->nextPtr;
 	}
-	int i=0;
-	int j=size-1;
-	while(i<j)
+	if (size > 1)
 	{
-		
+		currentPtr = firstPtr;
+		ListNode< NODETYPE > *prevPtr = currentPtr;
+		ListNode< NODETYPE > *storePtr = currentPtr->nextPtr;
+		currentPtr->nextPtr = 0;
+		currentPtr = storePtr;
+		while (currentPtr != lastPtr)
+		{
+			storePtr = currentPtr->nextPtr;
+			currentPtr->nextPtr = prevPtr;
+			prevPtr = currentPtr;
+			currentPtr = storePtr;
+			if (currentPtr == lastPtr)
+			{
+				currentPtr->nextPtr = prevPtr;
+			}
+		}
+		storePtr = lastPtr;
+		lastPtr = firstPtr;
+		firstPtr = storePtr;
+	}
+	else { cout << "List has one or fewer elements" << endl; }
+}
+#endif

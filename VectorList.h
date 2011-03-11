@@ -59,7 +59,7 @@ class VectorList
 
 template< typename NODETYPE > 
 VectorList< NODETYPE >::VectorList()  
-:  // Fill in the missing code 
+//:  // Fill in the missing code 
 {  
   // empty body 
 }  
