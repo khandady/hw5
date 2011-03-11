@@ -223,7 +223,7 @@ void LinkedList< NODETYPE >::print() const
 
 //overload [] to access list elements, broken atm
 template< typename NODETYPE >
-NODETYPE & LinkedList< NODETYPE >::operator[](int index) const
+NODETYPE & LinkedList< NODETYPE >::operator[](unsigned int index) const
 {
 	unsigned int size = listsize();
 	ListNode< NODETYPE > *currentPtr = firstPtr;
