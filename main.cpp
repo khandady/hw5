@@ -15,7 +15,8 @@ void instructions()
       << "  5 to end list processing\n"
       << "  6 to sum list elements\n"
       << "  7 to access a list element\n"
-      << "  8 to reverse list order\n";
+      << "  8 to reverse list order\n"
+      << "  9 to test shared\n";
 } 
 
 // function to test a LinkedList
@@ -142,7 +143,7 @@ int main()
    // test VectorList of double values
    VectorList< double > doubleVectorList;
    testVectorList( doubleVectorList, "double" ); 
-
+   cout << "testing shared : " << integerLinkedList.shared(integerLinkedList) << endl;
    return 0;
 } 
 

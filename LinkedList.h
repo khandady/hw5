@@ -58,8 +58,23 @@ class LinkedList
 
   // utility function to allocate new node
   ListNode< NODETYPE > *getNewNode( const NODETYPE & );
+
+  // utility function to check list size
+  unsigned int listsize() const;
 }; 
 
+template< typename NODETYPE>
+unsigned int LinkedList< NODETYPE >::listsize() const
+{
+	unsigned int i = 0;
+	ListNode< NODETYPE > *currentPtr = firstPtr;
+	while (currentPtr != 0)
+	{
+		i++;
+		currentPtr = currentPtr->nextPtr;
+	}
+	return i;
+}
 
 template< typename NODETYPE >
 LinkedList< NODETYPE >::LinkedList() 
@@ -210,14 +225,25 @@ void LinkedList< NODETYPE >::print() const
 template< typename NODETYPE >
 NODETYPE & LinkedList< NODETYPE >::operator[](int index) const
 {
+	unsigned int size = listsize();
 	ListNode< NODETYPE > *currentPtr = firstPtr;
-	for (int i = 0;i<index;i++)
+	if (index < size)
 	{
-		currentPtr = currentPtr->nextPtr;
+		for (int i = 0;i<index;i++)
+		{
+			currentPtr = currentPtr->nextPtr;
+		}
+		NODETYPE thing = currentPtr->getData();
+		NODETYPE &node = thing;
+		return node;
 	}
-	NODETYPE thing = currentPtr->getData();
-	NODETYPE &node = thing;
-	return node;
+	else
+	{
+		cout << "list overrange" << endl;
+		NODETYPE thing = 0;
+		NODETYPE &node = thing;
+		return node;
+	}
 }
 
 //sum list elements
@@ -248,14 +274,22 @@ void LinkedList< NODETYPE >::sort()
 template< typename NODETYPE >
 void LinkedList< NODETYPE >::reverse()
 {
-	unsigned int size= 0;
-	ListNode< NODETYPE > *currentPtr = firstPtr;
+	unsigned int size= listsize();
+	/*ListNode< NODETYPE > *currentPtr = firstPtr;
 	while (currentPtr != lastPtr)
 	{
 		size++;
 		currentPtr = currentPtr->nextPtr;
-	}
-	if (size > 1)
+	}*/
+	ListNode< NODETYPE > *currentPtr = 0;
+	if (size == 2)
+	{
+		ListNode< NODETYPE > *currentPtr = firstPtr;
+		firstPtr = lastPtr;
+		firstPtr->nextPtr = currentPtr;
+		currentPtr->nextPtr = 0;
+	}	
+	else if (size > 2)
 	{
 		currentPtr = firstPtr;
 		ListNode< NODETYPE > *prevPtr = currentPtr;
@@ -279,4 +313,29 @@ void LinkedList< NODETYPE >::reverse()
 	}
 	else { cout << "List has one or fewer elements" << endl; }
 }
+
+template< typename NODETYPE >
+bool LinkedList< NODETYPE >::shared(const LinkedList< NODETYPE > &l2)
+{
+	if ( !l2.isEmpty() )
+	{
+		ListNode< NODETYPE > *currentPtr = firstPtr;
+		ListNode< NODETYPE > *otherPtr = l2.firstPtr;
+		while (currentPtr != 0)
+		{
+			while(otherPtr != 0)
+			{
+				if (currentPtr == otherPtr)
+				{
+					return true;
+				}
+				otherPtr = otherPtr->nextPtr;
+			}
+			currentPtr = currentPtr->nextPtr;
+		}
+		return false;
+	}
+	else {return false;}
+}
+
 #endif
