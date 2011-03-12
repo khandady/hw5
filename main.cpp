@@ -18,6 +18,20 @@ void instructions()
       << "  8 to reverse list order\n"
       << "  9 to test shared\n";
 } 
+// function to test map member function
+template< typename T >
+T timesfive(const T &anum)
+{
+	return anum * 5;
+}
+// function to test filter
+template< typename T >
+bool even(const T &anum)
+{
+	if ( anum % 2 == 0)
+	{return true;}
+	else {return false;}
+}
 
 // function to test a LinkedList
 template< typename T >
@@ -144,6 +158,12 @@ int main()
    VectorList< double > doubleVectorList;
    testVectorList( doubleVectorList, "double" ); 
    cout << "testing shared : " << integerLinkedList.shared(integerLinkedList) << endl;
+   //int &anum;
+   cout << "testing map :\n";  
+   integerLinkedList.map(timesfive);
+   cout << "testing filter\n";
+   integerLinkedList.filter(even);
+   integerLinkedList.print();
    return 0;
 } 
 

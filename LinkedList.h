@@ -41,7 +41,7 @@ class LinkedList
   bool shared(const LinkedList< NODETYPE > &l2); 
 
   // Apply the function func to each element in the linked list
-  void map(NODETYPE func(const NODETYPE &, NODETYPE const &)); 
+  void map(NODETYPE func(const NODETYPE &)); 
 
   // Keep only those nodes n where predicate(n) = true 
   void filter(bool predicate(const NODETYPE &)); 
@@ -60,13 +60,13 @@ class LinkedList
   ListNode< NODETYPE > *getNewNode( const NODETYPE & );
 
   // utility function to check list size
-  unsigned int listsize() const;
+  int listsize() const;
 }; 
 
 template< typename NODETYPE>
-unsigned int LinkedList< NODETYPE >::listsize() const
+int LinkedList< NODETYPE >::listsize() const
 {
-	unsigned int i = 0;
+	int i = 0;
 	ListNode< NODETYPE > *currentPtr = firstPtr;
 	while (currentPtr != 0)
 	{
@@ -223,9 +223,9 @@ void LinkedList< NODETYPE >::print() const
 
 //overload [] to access list elements, broken atm
 template< typename NODETYPE >
-NODETYPE & LinkedList< NODETYPE >::operator[](unsigned int index) const
+NODETYPE & LinkedList< NODETYPE >::operator[](int index) const
 {
-	unsigned int size = listsize();
+	int size = listsize();
 	ListNode< NODETYPE > *currentPtr = firstPtr;
 	if (index < size)
 	{
@@ -338,4 +338,49 @@ bool LinkedList< NODETYPE >::shared(const LinkedList< NODETYPE > &l2)
 	else {return false;}
 }
 
+template< typename NODETYPE >
+void LinkedList< NODETYPE >::map(NODETYPE func(const NODETYPE &))
+{
+	ListNode< NODETYPE > *currentPtr = firstPtr;
+	while( currentPtr != 0)
+	{
+		currentPtr->data = func(currentPtr->data);
+		currentPtr = currentPtr->nextPtr;
+	}
+	print();
+}
+
+template< typename NODETYPE >
+void LinkedList< NODETYPE >::filter(bool predicate(const NODETYPE &))
+{
+	if (!isEmpty()){
+	ListNode< NODETYPE > *prevPtr = firstPtr;
+	ListNode< NODETYPE > *currentPtr = firstPtr;
+	while (currentPtr != 0 )
+	{
+		if ( isEmpty() )
+		{
+			cout << "no matching nodes, list empty\n";
+			break;
+		}
+		if (predicate(currentPtr->getData()) == true)
+		{
+			prevPtr = currentPtr;
+			currentPtr = currentPtr->nextPtr;
+		}
+		else if (currentPtr == firstPtr)
+		{
+			prevPtr = firstPtr->nextPtr;
+			firstPtr = prevPtr;
+			delete currentPtr;
+			currentPtr = prevPtr;
+		}
+		else
+		{
+			ListNode<NODETYPE>*tempPtr = currentPtr;
+			prevPtr->nextPtr = currentPtr->nextPtr;
+			currentPtr = currentPtr->nextPtr;
+			delete tempPtr;
+	}}
+}}
 #endif
