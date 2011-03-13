@@ -15,8 +15,7 @@ void instructions()
       << "  5 to end list processing\n"
       << "  6 to sum list elements\n"
       << "  7 to access a list element\n"
-      << "  8 to reverse list order\n"
-      << "  9 to test shared\n";
+      << "  8 to reverse list order\n";
 } 
 // function to test map member function
 template< typename T >
@@ -163,6 +162,9 @@ int main()
    integerLinkedList.map(timesfive);
    cout << "testing filter\n";
    integerLinkedList.filter(even);
+   integerLinkedList.print();
+   cout << "testing removeDup()\n";
+   integerLinkedList.removeDup();
    integerLinkedList.print();
    return 0;
 } 

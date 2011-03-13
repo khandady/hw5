@@ -383,4 +383,29 @@ void LinkedList< NODETYPE >::filter(bool predicate(const NODETYPE &))
 			delete tempPtr;
 	}}
 }}
+
+template < typename NODETYPE >
+void LinkedList< NODETYPE >::removeDup()
+{
+	NODETYPE value;
+	ListNode< NODETYPE > *currentPtr = firstPtr;
+	while (currentPtr != 0)
+	{
+		value = currentPtr->data;
+		ListNode< NODETYPE > *prevPtr = currentPtr;
+		ListNode< NODETYPE > *cyclePtr = currentPtr->nextPtr;
+		while (cyclePtr != 0)
+		{
+			if (value == cyclePtr->data)
+			{
+				ListNode< NODETYPE > *storePtr = cyclePtr->nextPtr;
+				prevPtr->nextPtr =  cyclePtr->nextPtr;
+				delete cyclePtr;
+				cyclePtr = storePtr;
+			}
+			else {cyclePtr = cyclePtr->nextPtr;}
+		}
+		currentPtr = currentPtr->nextPtr;
+	}
+}
 #endif
