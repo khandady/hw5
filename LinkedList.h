@@ -267,9 +267,44 @@ NODETYPE LinkedList< NODETYPE >::sum() const
 	return total;
 }
 
-/*template< typename NODETYPE >
+template< typename NODETYPE >
 void LinkedList< NODETYPE >::sort()
-{*/
+{
+	int counter = 0;
+	int size = listsize();
+	ListNode< NODETYPE > **Ptr = new ListNode< NODETYPE > *[size];
+	ListNode< NODETYPE > *currentPtr = firstPtr;
+	while ( currentPtr != 0 )
+	{
+		Ptr[counter] = currentPtr;
+		currentPtr = currentPtr->nextPtr;
+		counter++;
+	}
+	for (int i=1;i<size;i++)
+	{
+		currentPtr = Ptr[i];
+		NODETYPE key = Ptr[i]->data;
+		int j = i-1;
+		while ((j>-1) && ((Ptr[j]->data) > key))
+		{
+			cout << "in while loop" << endl;
+			cout << Ptr[j+1] << "  " << Ptr[j];
+			Ptr[j+1] = Ptr[j];
+			j= j-1;
+		}
+		Ptr[j+1]= currentPtr;
+	}
+	firstPtr = Ptr[0];
+	lastPtr = Ptr[size-1];
+	lastPtr->nextPtr = 0;
+	currentPtr = firstPtr;
+	for (int i=1; i<size; i++)
+	{
+		currentPtr->nextPtr = Ptr[i];
+		currentPtr = currentPtr->nextPtr;
+	}
+
+}
 
 template< typename NODETYPE >
 void LinkedList< NODETYPE >::reverse()

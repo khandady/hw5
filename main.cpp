@@ -157,7 +157,9 @@ int main()
    VectorList< double > doubleVectorList;
    testVectorList( doubleVectorList, "double" ); 
    cout << "testing shared : " << integerLinkedList.shared(integerLinkedList) << endl;
-   //int &anum;
+   cout << "testing sort\n";
+   integerLinkedList.sort();
+   integerLinkedList.print();
    cout << "testing map :\n";  
    integerLinkedList.map(timesfive);
    cout << "testing filter\n";
